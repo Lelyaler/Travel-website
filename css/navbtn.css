@@ -1,0 +1,123 @@
+.nav-button {
+   position: relative;
+   z-index: 999;
+   display: none;
+   padding: 0;
+   height: 30px;
+   width: 40px;
+   border: none;
+   background: none;
+   cursor: pointer;
+}
+
+.nav-button:focus,
+.nav-button:active {
+   outline: none;
+}
+
+.nav-button-icon {
+   position: relative;
+   display: block;
+   width: 40px;
+   height: 4px;
+   border: none;
+   background-color: #FFFFFF;
+}
+
+.nav-button-icon::before {
+   content: "";
+   position: absolute;
+   top: -12px;
+   left: 0;
+   display: block;
+   width: 40px;
+   height: 4px;
+   background-color: #FFFFFF;
+}
+
+.nav-button-icon::after{
+   content: "";
+   position: absolute;
+   bottom: -12px;
+   left: 0;
+   display: block;
+   width: 40px;
+   height: 4px;
+   background-color: #FFFFFF;
+}
+
+.nav-button-icon--active {
+   background: none;
+}
+.nav-button-icon--active::before {
+   transform-origin: left top; 
+   transform: rotate(45deg) 
+   translate3d(0px, -2px, 0);
+}
+
+.nav-button-icon--active::after {
+   transform-origin: left bottom; 
+   transform: rotate(-45deg)
+   translate3d(0px, 3px, 0);
+}
+
+
+/*-------------Mobail Nav-----------------*/
+
+.no-scroll {
+   overflow-y: hidden;
+}
+.mobail__nav {
+   position: fixed;
+   top: 0;
+   right: -320зч;
+   width: 320px;
+   height: 100%;
+   z-index: 99;
+  
+   display: flex;
+   flex-direction: column;
+  
+   align-items: flex-start;
+   padding: 80px 40px 40px;
+  
+   background-color: #141d22;
+   transition: all .2s ease-in; 
+}
+.mobail__nav--open {
+ right: 0;
+}
+
+.mobail__nav-fade {
+   position: fixed;
+   left: 0;
+   top: 0;
+   height: 100%;
+   width: 100%;
+   background-color: rgb(19, 20, 34 /70%);
+   z-index: 98;
+   
+   opacity: 0;
+   transition: opacity .2s ease-in;
+   pointer-events: none;
+}
+
+.mobail__nav-fade--open {
+   opacity: 1;
+   pointer-events: all;
+}
+
+.mobail__nav-list {
+   display: grid;
+   gap: 20px;
+   text-transform: capitalize;
+}
+
+.mobail__nav-list a{
+   text-decoration: none;
+   color: #FFFFFF;
+}
+
+.mobail__nav-list a:hover{
+   color: #b7ace7;
+}
