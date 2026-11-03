@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('header[id], section[id], footer[id]');
   const desktopNavLinks = document.querySelectorAll('.nav__menu-link');
 
-  window.addEventListener('scroll', () => {
+  function handleScroll() {
     const scrollY = window.scrollY;
 
     if (nav) {
-      if (scrollY > 70) {
+      if (scrollY > 50) {
         nav.classList.add('is-scrolled');
       } else {
         nav.classList.remove('is-scrolled');
@@ -81,7 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
         link.classList.remove('nav__menu-link--active');
       }
     });
-  }, { passive: true });
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
 
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {

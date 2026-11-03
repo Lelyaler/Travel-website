@@ -148,33 +148,33 @@ input, select, textarea {
 
 .nav-bar-wrapper {
   width: 100%;
+  min-height: 76px;
   padding-bottom: 24px;
 }
 
 .nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 14px 24px;
-  background: rgba(15, 23, 42, 0.35);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: none;
-  border-radius: var(--radius-full);
-  transition: all var(--transition);
-}
-
-.nav.is-scrolled {
   position: fixed;
-  top: 16px;
+  top: 24px;
   left: 50%;
   transform: translateX(-50%);
   max-width: 1296px;
   width: calc(100% - 64px);
   z-index: 100;
-  background: rgba(15, 23, 42, 0.92);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: none;
+  border-radius: var(--radius-full);
+  transition: top 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.nav.is-scrolled {
+  top: 14px;
+  background: rgba(15, 23, 42, 0.94);
   box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.35);
 }
 
