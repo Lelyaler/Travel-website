@@ -1,26 +1,58 @@
-const countryList = ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Costa Rica', 'Côte d’Ivoire', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Democratic Republic of the Congo', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Korea', 'North Macedonia', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan', 'Spain', 'Sri Lanka'];
+const popularDestinations = [
+  'Big Sur, California',
+  'Prescott, Arizona',
+  'Fort Myers, Florida',
+  'Tucson, Arizona',
+  'St. Joseph, Michigan',
+  'Madrid, Spain',
+  'Salerno, Italy',
+  'Lake Como, Italy',
+  'Udaipur, India',
+  'Los Angeles, United States',
+  'Paris, France',
+  'Rome, Italy',
+  'Tokyo, Japan',
+  'Bali, Indonesia',
+  'Sydney, Australia',
+  'Cape Town, South Africa',
+  'Reykjavik, Iceland',
+  'Zermatt, Switzerland'
+];
+
+const countryList = [
+  'United States', 'Italy', 'Spain', 'India', 'France', 'Japan', 'Switzerland',
+  'Australia', 'Canada', 'Greece', 'Portugal', 'United Kingdom', 'Germany',
+  'Austria', 'Norway', 'Iceland', 'New Zealand', 'Indonesia', 'Thailand',
+  'South Africa', 'Mexico', 'Brazil', 'Argentina', 'Chile', 'Peru', 'Egypt',
+  'Morocco', 'Turkey', 'United Arab Emirates', 'Singapore', 'Vietnam', 'Croatia'
+];
+
+const combinedSearchSources = [...popularDestinations, ...countryList];
 
 const autoCompleteJS = new autoComplete({
-   selector: '#location',
-   placeHolder: 'Contry name...',
-   data: {
-      src: countryList,
-      cache: true,
-   },
-   resultItem: {
-      highlight: true,
-   },
-   events: {
-      input: {
-         selection: (event) => {
-            const selection = event.detail.selection.value;
-            autoCompleteJS.input.value = selection;
-         },
+  selector: '#location',
+  placeHolder: 'Destination or country...',
+  data: {
+    src: combinedSearchSources,
+    cache: true,
+  },
+  resultItem: {
+    highlight: true,
+  },
+  events: {
+    input: {
+      selection: (event) => {
+        const selection = event.detail.selection.value;
+        autoCompleteJS.input.value = selection;
+        
+        if (typeof window.filterDestinationsByQuery === 'function') {
+          window.filterDestinationsByQuery(selection);
+        }
       },
-   },
-   resultList: {
-      maxResultsLimit:15,
-   },
-
-   searchEngine: 'strict', //strict  losoe
+    },
+  },
+  resultList: {
+    maxResultsLimit: 8,
+  },
+  searchEngine: 'loose',
 });
