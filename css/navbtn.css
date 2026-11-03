@@ -1,123 +1,182 @@
 .nav-button {
-   position: relative;
-   z-index: 999;
-   display: none;
-   padding: 0;
-   height: 30px;
-   width: 40px;
-   border: none;
-   background: none;
-   cursor: pointer;
+  position: relative;
+  z-index: 101;
+  display: none;
+  padding: 0;
+  height: 32px;
+  width: 36px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .nav-button:focus,
 .nav-button:active {
-   outline: none;
+  outline: none;
 }
 
 .nav-button-icon {
-   position: relative;
-   display: block;
-   width: 40px;
-   height: 4px;
-   border: none;
-   background-color: #FFFFFF;
+  position: relative;
+  display: block;
+  width: 32px;
+  height: 3px;
+  border: none;
+  background-color: #ffffff;
+  border-radius: 4px;
+  transition: all 0.25s ease-in-out;
+}
+
+.nav-button-icon::before,
+.nav-button-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 32px;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  transition: all 0.25s ease-in-out;
 }
 
 .nav-button-icon::before {
-   content: "";
-   position: absolute;
-   top: -12px;
-   left: 0;
-   display: block;
-   width: 40px;
-   height: 4px;
-   background-color: #FFFFFF;
+  top: -10px;
 }
 
-.nav-button-icon::after{
-   content: "";
-   position: absolute;
-   bottom: -12px;
-   left: 0;
-   display: block;
-   width: 40px;
-   height: 4px;
-   background-color: #FFFFFF;
+.nav-button-icon::after {
+  bottom: -10px;
 }
 
 .nav-button-icon--active {
-   background: none;
+  background: transparent;
 }
+
 .nav-button-icon--active::before {
-   transform-origin: left top; 
-   transform: rotate(45deg) 
-   translate3d(0px, -2px, 0);
+  top: 0;
+  transform: rotate(45deg);
 }
 
 .nav-button-icon--active::after {
-   transform-origin: left bottom; 
-   transform: rotate(-45deg)
-   translate3d(0px, 3px, 0);
+  bottom: 0;
+  transform: rotate(-45deg);
 }
-
-
-/*-------------Mobail Nav-----------------*/
 
 .no-scroll {
-   overflow-y: hidden;
-}
-.mobail__nav {
-   position: fixed;
-   top: 0;
-   right: -320зч;
-   width: 320px;
-   height: 100%;
-   z-index: 99;
-  
-   display: flex;
-   flex-direction: column;
-  
-   align-items: flex-start;
-   padding: 80px 40px 40px;
-  
-   background-color: #141d22;
-   transition: all .2s ease-in; 
-}
-.mobail__nav--open {
- right: 0;
+  overflow-y: hidden;
 }
 
 .mobail__nav-fade {
-   position: fixed;
-   left: 0;
-   top: 0;
-   height: 100%;
-   width: 100%;
-   background-color: rgb(19, 20, 34 /70%);
-   z-index: 98;
-   
-   opacity: 0;
-   transition: opacity .2s ease-in;
-   pointer-events: none;
+  position: fixed;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 198;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .mobail__nav-fade--open {
-   opacity: 1;
-   pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobail__nav {
+  position: fixed;
+  top: 0;
+  right: -340px;
+  width: min(340px, 85vw);
+  height: 100%;
+  z-index: 199;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px;
+  background-color: #0f172a;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
+  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+}
+
+.mobail__nav--open {
+  right: 0;
+}
+
+.mobail__nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: none;
+}
+
+.mobail__nav-close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.mobail__nav-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mobail__nav-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.mobail__nav-user img {
+  border-radius: 50%;
+  border: none;
+}
+
+.mobail__nav-username {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.mobail__nav-status {
+  font-size: 11px;
+  color: var(--text-light);
 }
 
 .mobail__nav-list {
-   display: grid;
-   gap: 20px;
-   text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
 }
 
-.mobail__nav-list a{
-   text-decoration: none;
-   color: #FFFFFF;
+.mobail__nav-list a {
+  display: block;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  transition: all 0.2s ease;
 }
 
-.mobail__nav-list a:hover{
-   color: #b7ace7;
+.mobail__nav-list a:hover,
+.mobail__nav-list a.active {
+  color: #ffffff;
+  background: rgba(82, 67, 194, 0.35);
+  transform: translateX(4px);
 }
