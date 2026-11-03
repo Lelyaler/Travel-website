@@ -684,6 +684,9 @@ input, select, textarea {
 .section__card--hotel {
   padding: 12px;
   border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .hotel__img-wrap {
@@ -746,6 +749,7 @@ input, select, textarea {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
 }
 
 .section__title--hotels {
@@ -776,11 +780,12 @@ input, select, textarea {
 
 .hotel__btn-details {
   align-self: flex-start;
-  margin-top: 8px;
+  margin-top: auto;
+  padding-top: 12px;
   font-size: 13px;
   font-weight: 600;
   color: var(--primary);
-  padding: 6px 0;
+  padding-bottom: 4px;
   transition: color var(--transition);
 }
 
