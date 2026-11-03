@@ -107,9 +107,9 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .globe-explorer {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  .hotels__header-controls {
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   .hotel-modal__grid {

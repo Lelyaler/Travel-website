@@ -200,136 +200,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const globeModal = document.getElementById('globe-modal');
-  const btnOpenGlobe = document.getElementById('btn-open-globe');
-  const btnCloseGlobe = document.getElementById('btn-close-globe');
-  const svgPins = document.querySelectorAll('.svg-pin');
-  const mapChips = document.querySelectorAll('.map-chip');
-  const cityNameEl = document.getElementById('globe-city-name');
-  const countryNameEl = document.getElementById('globe-country-name');
-  const tempValEl = document.getElementById('globe-temp-val');
-  const seasonValEl = document.getElementById('globe-season-val');
-  const vibeDescEl = document.getElementById('globe-vibe-desc');
-  const spotlightImgEl = document.getElementById('globe-spotlight-img');
-  const btnGlobeFilter = document.getElementById('btn-globe-filter');
-
-  let activeCityData = 'Big Sur';
-
-  const mapDestinationsData = {
-    'Big Sur': {
-      country: 'California, USA',
-      temp: '21°C',
-      season: 'April – October',
-      img: 'image/popular/img.webp',
-      desc: 'Dramatic Pacific coastal highway cliffs, secluded redwoods, and iconic Big Sur ocean lookouts.'
-    },
-    'Prescott': {
-      country: 'Arizona, USA',
-      temp: '24°C',
-      season: 'May – October',
-      img: 'image/popular/img-1.webp',
-      desc: 'Cool mountain pine forests, pristine alpine lakes, and historic Victorian square architecture.'
-    },
-    'Lake Como': {
-      country: 'Lombardy, Italy',
-      temp: '25°C',
-      season: 'May – September',
-      img: 'image/hotels/Grand Hotel.webp',
-      desc: 'Serene deep-blue alpine waters surrounded by Belle Époque historic villas, floating pools, and cypress gardens.'
-    },
-    'Madrid': {
-      country: 'Central Spain',
-      temp: '27°C',
-      season: 'Year-round',
-      img: 'image/popular/img-5.webp',
-      desc: 'Vibrant capital of grand royal boulevards, world-class art collections at Prado, and sunset tapas culture.'
-    },
-    'Udaipur': {
-      country: 'Rajasthan, India',
-      temp: '29°C',
-      season: 'October – March',
-      img: 'image/hotels/Udaipur, India.webp',
-      desc: 'The City of Lakes: majestic royal marble palaces reflecting across tranquil Lake Pichola under starlit skies.'
-    }
-  };
-
-  function selectMapDestination(cityName) {
-    const data = mapDestinationsData[cityName];
-    if (!data) return;
-
-    activeCityData = cityName;
-
-    svgPins.forEach((pin) => {
-      const match = pin.getAttribute('data-city') === cityName;
-      pin.classList.toggle('is-active', match);
-    });
-
-    mapChips.forEach((chip) => {
-      const match = chip.getAttribute('data-city') === cityName;
-      chip.classList.toggle('is-active', match);
-    });
-
-    if (cityNameEl) cityNameEl.textContent = cityName;
-    if (countryNameEl) countryNameEl.textContent = data.country;
-    if (tempValEl) tempValEl.textContent = `${data.temp} · Sunny`;
-    if (seasonValEl) seasonValEl.textContent = data.season;
-    if (vibeDescEl) vibeDescEl.textContent = data.desc;
-    if (spotlightImgEl) {
-      spotlightImgEl.src = data.img;
-      spotlightImgEl.alt = `${cityName} destination preview`;
-    }
-  }
-
-  if (btnOpenGlobe && globeModal) {
-    btnOpenGlobe.addEventListener('click', () => {
-      globeModal.showModal();
-    });
-  }
-
-  if (btnCloseGlobe && globeModal) {
-    btnCloseGlobe.addEventListener('click', () => {
-      globeModal.close();
-    });
-  }
-
-  if (globeModal) {
-    globeModal.addEventListener('click', (e) => {
-      if (e.target === globeModal) {
-        globeModal.close();
-      }
-    });
-  }
-
-  svgPins.forEach((pin) => {
-    pin.addEventListener('click', () => {
-      const city = pin.getAttribute('data-city');
-      selectMapDestination(city);
-    });
-  });
-
-  mapChips.forEach((chip) => {
-    chip.addEventListener('click', () => {
-      const city = chip.getAttribute('data-city');
-      selectMapDestination(city);
-    });
-  });
-
-  if (btnGlobeFilter && globeModal) {
-    btnGlobeFilter.addEventListener('click', () => {
-      globeModal.close();
-      window.filterDestinationsByQuery(activeCityData);
-    });
-  }
-
   const hotelModal = document.getElementById('hotel-modal');
   const btnCloseHotel = document.getElementById('btn-close-hotel');
   const hotelDetailButtons = document.querySelectorAll('.hotel__btn-details');
+  const stayNightsVal = document.getElementById('stay-nights-val');
+  const stayNightsMinus = document.getElementById('stay-nights-minus');
+  const stayNightsPlus = document.getElementById('stay-nights-plus');
+  const hotelModalTotal = document.getElementById('hotel-modal-total');
+  const bookingConfirmCard = document.getElementById('booking-confirm-card');
+  const hotelModalFooter = document.getElementById('hotel-modal-footer');
+  const btnBookStay = document.getElementById('btn-book-stay');
+
+  let currentHotelKey = 'monastero';
+  let selectedNights = 3;
+
+  const currencyRates = {
+    USD: { symbol: '$', rate: 1.0 },
+    EUR: { symbol: '€', rate: 0.92 },
+    GBP: { symbol: '£', rate: 0.79 }
+  };
+  let currentCurrency = localStorage.getItem('2rism_currency') || 'USD';
+  const currencyChips = document.querySelectorAll('.currency-chip');
 
   const hotelsData = {
     monastero: {
       title: 'Monastero Santa Rosa Hotel & Spa',
       location: 'Salerno, Italy',
-      price: '$680',
+      basePrice: 680,
       badge: 'Michelin Dining & Spa',
       rating: '★★★★★',
       reviews: '(214 verified reviews)',
@@ -340,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tremezzo: {
       title: 'Grand Hotel Tremezzo',
       location: 'Lake Como, Italy',
-      price: '$820',
+      basePrice: 820,
       badge: 'Lakefront Icon',
       rating: '★★★★★',
       reviews: '(189 verified reviews)',
@@ -351,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     oberoi: {
       title: 'The Oberoi Udaivilas, Udaipur',
       location: 'Udaipur, India',
-      price: '$540',
+      basePrice: 540,
       badge: 'Heritage Royal Palace',
       rating: '★★★★★',
       reviews: '(162 verified reviews)',
@@ -362,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
     beverly: {
       title: 'AKA Beverly Hills',
       location: 'Los Angeles, United States',
-      price: '$490',
+      basePrice: 490,
       badge: 'Contemporary Luxury',
       rating: '★★★★★',
       reviews: '(143 verified reviews)',
@@ -372,6 +269,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  function formatPrice(baseUsd, currency) {
+    const cfg = currencyRates[currency] || currencyRates.USD;
+    const converted = Math.round(baseUsd * cfg.rate);
+    return `${cfg.symbol}${converted.toLocaleString()}`;
+  }
+
+  function updateModalPriceCalculation() {
+    const data = hotelsData[currentHotelKey];
+    if (!data) return;
+
+    const pricePerNightStr = formatPrice(data.basePrice, currentCurrency);
+    const totalPriceStr = formatPrice(data.basePrice * selectedNights, currentCurrency);
+
+    const priceEl = document.getElementById('hotel-modal-price');
+    if (priceEl) priceEl.textContent = pricePerNightStr;
+
+    if (stayNightsVal) stayNightsVal.textContent = `${selectedNights} night${selectedNights > 1 ? 's' : ''}`;
+    if (hotelModalTotal) hotelModalTotal.textContent = `Total: ${totalPriceStr} for ${selectedNights} nights`;
+  }
+
+  function updatePrices(currency) {
+    currentCurrency = currency;
+    localStorage.setItem('2rism_currency', currency);
+
+    currencyChips.forEach((chip) => {
+      const isActive = chip.getAttribute('data-currency') === currency;
+      chip.classList.toggle('is-active', isActive);
+      chip.setAttribute('aria-checked', isActive ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('.section__card--hotel').forEach((card) => {
+      const hotelId = card.getAttribute('data-hotel-id');
+      const hotel = hotelsData[hotelId];
+      if (hotel) {
+        const priceEl = card.querySelector('.hotel__price');
+        if (priceEl) {
+          priceEl.innerHTML = `${formatPrice(hotel.basePrice, currency)} <small>/ night</small>`;
+        }
+      }
+    });
+
+    updateModalPriceCalculation();
+  }
+
+  currencyChips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const curr = chip.getAttribute('data-currency');
+      if (curr) updatePrices(curr);
+    });
+  });
+
+  if (stayNightsMinus) {
+    stayNightsMinus.addEventListener('click', () => {
+      if (selectedNights > 1) {
+        selectedNights -= 1;
+        updateModalPriceCalculation();
+      }
+    });
+  }
+
+  if (stayNightsPlus) {
+    stayNightsPlus.addEventListener('click', () => {
+      if (selectedNights < 30) {
+        selectedNights += 1;
+        updateModalPriceCalculation();
+      }
+    });
+  }
+
   hotelDetailButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -379,9 +345,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = hotelsData[hotelKey];
       if (!data || !hotelModal) return;
 
+      currentHotelKey = hotelKey;
+      selectedNights = 3;
+
+      if (bookingConfirmCard) bookingConfirmCard.style.display = 'none';
+      if (hotelModalFooter) hotelModalFooter.style.display = 'flex';
+
       document.getElementById('hotel-modal-title').textContent = data.title;
       document.getElementById('hotel-modal-loc').textContent = data.location;
-      document.getElementById('hotel-modal-price').textContent = data.price;
       document.getElementById('hotel-modal-badge').textContent = data.badge;
       document.getElementById('hotel-modal-desc').textContent = data.desc;
       
@@ -402,6 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         imgEl.alt = data.title;
       }
 
+      updateModalPriceCalculation();
       hotelModal.showModal();
     });
   });
@@ -420,13 +392,147 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const btnBookStay = document.getElementById('btn-book-stay');
   if (btnBookStay && hotelModal) {
     btnBookStay.addEventListener('click', () => {
-      hotelModal.close();
-      showToast('Reservation inquiry registered! Our concierge specialist will contact you shortly.');
+      const data = hotelsData[currentHotelKey];
+      const bookingRef = `#TRV-${Math.floor(1000 + Math.random() * 9000)}`;
+      const totalPriceStr = formatPrice(data.basePrice * selectedNights, currentCurrency);
+
+      const refEl = document.getElementById('booking-ref-code');
+      if (refEl) refEl.textContent = bookingRef;
+
+      const nightsSummary = document.getElementById('booking-summary-nights');
+      if (nightsSummary) nightsSummary.textContent = `${selectedNights} nights / 2 guests · ${data.title}`;
+
+      const totalPaidSummary = document.getElementById('booking-summary-total');
+      if (totalPaidSummary) totalPaidSummary.textContent = totalPriceStr;
+
+      if (bookingConfirmCard) bookingConfirmCard.style.display = 'flex';
+      if (hotelModalFooter) hotelModalFooter.style.display = 'none';
+
+      const savedTrips = JSON.parse(localStorage.getItem('2rism_trips') || '[]');
+      savedTrips.push({ ref: bookingRef, hotel: data.title, nights: selectedNights, total: totalPriceStr, date: new Date().toLocaleDateString() });
+      localStorage.setItem('2rism_trips', JSON.stringify(savedTrips));
+
+      showToast(`Reservation ${bookingRef} confirmed! Saved to your trips.`);
     });
   }
+
+  const storiesData = {
+    eastvillage: {
+      eyebrow: 'Culinary Walking Route',
+      title: 'East Village Ice Cream Crawl',
+      desc: 'A guided 1.5-mile culinary exploration through five distinct neighborhood parlors, exploring micro-batch recipes, natural infusions, and secret flavor profiles.',
+      meta: 'Duration: ~3.5 Hours · Distance: 1.5 Miles · 5 Tasting Stops',
+      stops: [
+        {
+          time: '01:00 PM',
+          title: 'Morgenstern\'s Finest Ice Cream',
+          desc: 'Start with classic French-style egg custard ice creams. Must-try: Raw Milk and Burnt Honey with Black Sesame cone.'
+        },
+        {
+          time: '02:00 PM',
+          title: 'Van Leeuwen Artisan Scoop Shop',
+          desc: 'Walk along St. Marks Place to taste handcrafted cashew-and-coconut milk vegan scoops featuring Sicilian Pistachio.'
+        },
+        {
+          time: '03:15 PM',
+          title: 'Sundaes and Cones',
+          desc: 'Beloved local staple renowned for East Asian inspired infusions like Sweet Taro Root, Wasabi, and roasted Corn.'
+        },
+        {
+          time: '04:30 PM',
+          title: 'Ray\'s Candy Store & Tompkins Square Park',
+          desc: 'Conclude with historic Avenue A egg creams and beignets while taking in the neighborhood afternoon energy.'
+        }
+      ]
+    },
+    brooklyn: {
+      eyebrow: 'Photography & Skyline Itinerary',
+      title: 'Brooklyn Bridge Cinematic Photo Walk',
+      desc: 'An inspiring step-by-step route crafted for visual creators to capture the early morning or golden hour light along the East River piers and suspension cables.',
+      meta: 'Duration: ~4.5 Hours · Distance: 2.8 Miles · 4 Scenic Vantage Points',
+      stops: [
+        {
+          time: '06:30 AM',
+          title: 'Washington Street & Water Street (DUMBO)',
+          desc: 'Iconic cobblestone corridor perfectly framing the Manhattan Bridge anchorage through historic brick warehouses.'
+        },
+        {
+          time: '07:45 AM',
+          title: 'Brooklyn Bridge Pedestrian Promenade',
+          desc: 'Ascend from the Brooklyn approach. Use 35mm focal length to capture leading lines of the gothic limestone arches and steel diagonal suspenders.'
+        },
+        {
+          time: '09:15 AM',
+          title: 'Fulton Ferry Landing & River Café Pier',
+          desc: 'Relax with artisanal espresso while taking in unobstructed panoramic views of the Lower Manhattan skyline.'
+        },
+        {
+          time: '10:30 AM',
+          title: 'Brooklyn Bridge Park Pier 1 Promenade',
+          desc: 'Finish with a peaceful stroll across the green granite prospect hills overlooking Governors Island and the harbor.'
+        }
+      ]
+    }
+  };
+
+  const storyModal = document.getElementById('story-modal');
+  const btnCloseStory = document.getElementById('btn-close-story');
+  const storyTimelineContainer = document.getElementById('story-timeline-container');
+  const btnSaveItinerary = document.getElementById('btn-save-itinerary');
+  let activeStoryKey = 'brooklyn';
+
+  document.querySelectorAll('.button-itinerary').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const storyKey = btn.getAttribute('data-story');
+      const story = storiesData[storyKey];
+      if (!story || !storyModal) return;
+
+      activeStoryKey = storyKey;
+      document.getElementById('story-modal-eyebrow').textContent = story.eyebrow;
+      document.getElementById('story-modal-title').textContent = story.title;
+      document.getElementById('story-modal-desc').textContent = story.desc;
+      document.getElementById('story-modal-meta').textContent = story.meta;
+
+      if (storyTimelineContainer) {
+        storyTimelineContainer.innerHTML = story.stops.map(s => `
+          <div class="itinerary-step">
+            <span class="itinerary-step__time">${s.time}</span>
+            <h4 class="itinerary-step__title">${s.title}</h4>
+            <p class="itinerary-step__desc">${s.desc}</p>
+          </div>
+        `).join('');
+      }
+
+      storyModal.showModal();
+    });
+  });
+
+  if (btnCloseStory && storyModal) {
+    btnCloseStory.addEventListener('click', () => {
+      storyModal.close();
+    });
+  }
+
+  if (storyModal) {
+    storyModal.addEventListener('click', (e) => {
+      if (e.target === storyModal) {
+        storyModal.close();
+      }
+    });
+  }
+
+  if (btnSaveItinerary && storyModal) {
+    btnSaveItinerary.addEventListener('click', () => {
+      storyModal.close();
+      showToast(`✓ "${storiesData[activeStoryKey]?.title}" itinerary saved to your offline trips!`);
+    });
+  }
+
+  updatePrices(currentCurrency);
 
   const newsletterForm = document.getElementById('newsletter-form');
   const newsletterFeedback = document.getElementById('newsletter-feedback');

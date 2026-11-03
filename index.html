@@ -80,10 +80,6 @@
             <span class="header-content__eyebrow">Curated Boutique Journeys Worldwide</span>
             <h1 class="header-content__title">Discover the most engaging places</h1>
             <p class="header-content__tagline">Handpicked iconic landscapes, secluded luxury stays, and authentic adventures tailored for curious minds.</p>
-            <button class="button__discover" id="btn-open-globe" type="button" aria-haspopup="dialog">
-               <img class="button__discover__img" src="image/header/Vector.svg" alt="" width="24" height="24">
-               <span>Discover on 3D Globe</span>
-            </button>
          </div>
 
          <form class="form" id="search-form" role="search" aria-label="Search destinations and stays">
@@ -325,10 +321,17 @@
                   <span class="section__eyebrow">Handpicked Accommodations</span>
                   <h2 class="header__cards">Hotels and Restaurants</h2>
                </div>
-               <a class="button-more" href="#hotels" id="btn-view-all-hotels">
-                  <span>View all stays</span>
-                  <img src="image/hotels/arrow-more.svg" alt="" width="16" height="16">
-               </a>
+               <div class="hotels__header-controls">
+                  <div class="currency-selector" role="radiogroup" aria-label="Select currency">
+                     <button type="button" class="currency-chip is-active" data-currency="USD" role="radio" aria-checked="true">USD ($)</button>
+                     <button type="button" class="currency-chip" data-currency="EUR" role="radio" aria-checked="false">EUR (&euro;)</button>
+                     <button type="button" class="currency-chip" data-currency="GBP" role="radio" aria-checked="false">GBP (&pound;)</button>
+                  </div>
+                  <a class="button-more" href="#hotels" id="btn-view-all-hotels">
+                     <span>View all stays</span>
+                     <img src="image/hotels/arrow-more.svg" alt="" width="16" height="16">
+                  </a>
+               </div>
             </div>
 
             <div class="section__cards section__cards--hotels">
@@ -461,6 +464,7 @@
                   <div class="travel-block__content">
                      <h3 class="block__content-title">East Village Ice Cream Crawl</h3>
                      <p class="block__content-subtitle">We stop at five world-class artisanal ice cream parlors on this 1.5-mile guided neighborhood tour. Explore the craft behind each parlor, secret recipe inspirations, and seasonal botanical flavors.</p>
+                     <button class="button-itinerary" type="button" data-story="eastvillage">Explore Full Itinerary &rarr;</button>
                      <footer class="block__content-footer">
                         <div class="footer__meta-item">
                            <img src="image/travel/date.svg" alt="" width="16" height="16">
@@ -487,6 +491,7 @@
                   <div class="travel-block__content">
                      <h3 class="block__content-title">Brooklyn Bridge Cinematic Photo Walk</h3>
                      <p class="block__content-subtitle">Capture the magic of golden hour from Brooklyn Bridge Park up to the iconic stone arches. Local composition tips, crowd-dodging vantage points, and long-exposure lighting recommendations.</p>
+                     <button class="button-itinerary" type="button" data-story="brooklyn">Explore Full Itinerary &rarr;</button>
                      <footer class="block__content-footer">
                         <div class="footer__meta-item">
                            <img src="image/travel/date.svg" alt="" width="16" height="16">
@@ -710,107 +715,18 @@
       </div>
    </footer>
 
-      <dialog class="modal-dialog modal-dialog--wide" id="globe-modal" aria-labelledby="globe-modal-title">
-      <div class="modal-dialog__content modal-dialog__content--explorer">
-         <button class="modal-dialog__close" id="btn-close-globe" aria-label="Close interactive map">&times;</button>
-         <div class="globe-dialog__header">
-            <span class="modal-eyebrow">Interactive Route &amp; Destination Explorer</span>
-            <h2 class="modal-title" id="globe-modal-title">Discover Global Escapes</h2>
-            <p class="modal-desc">Explore iconic flight connections, real-time season climate, and curated boutique destinations across the continents.</p>
-         </div>
-         
-         <div class="globe-explorer">
-            <div class="world-map-wrap">
-               <svg class="world-map-svg" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" aria-label="Interactive World Map">
-                                    <rect width="1000" height="520" fill="#0f172a" rx="20"></rect>
-                  
-                                    <g class="map-grid" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1" stroke-dasharray="3 6">
-                     <line x1="0" y1="130" x2="1000" y2="130"></line>
-                     <line x1="0" y1="260" x2="1000" y2="260"></line>
-                     <line x1="0" y1="390" x2="1000" y2="390"></line>
-                     <line x1="250" y1="0" x2="250" y2="520"></line>
-                     <line x1="500" y1="0" x2="500" y2="520"></line>
-                     <line x1="750" y1="0" x2="750" y2="520"></line>
-                  </g>
-
-                                    <g class="map-continents" fill="#1e293b" fill-opacity="0.85">
-                                          <path d="M 120,70 Q 150,50 220,60 Q 280,70 300,120 Q 330,130 310,170 Q 280,180 260,220 Q 220,250 180,240 Q 140,210 120,160 Z"></path>
-                                          <path d="M 230,250 Q 260,260 280,300 Q 320,350 310,420 Q 280,480 250,470 Q 230,410 220,340 Q 210,290 230,250 Z"></path>
-                                          <path d="M 450,90 Q 520,70 570,100 Q 600,130 570,170 Q 520,190 480,190 Q 450,150 450,90 Z"></path>
-                                          <path d="M 470,200 Q 560,190 580,260 Q 600,340 560,420 Q 510,450 490,380 Q 460,300 470,200 Z"></path>
-                                          <path d="M 580,80 Q 720,60 850,90 Q 920,130 900,210 Q 820,280 750,260 Q 680,270 650,220 Q 590,180 580,80 Z"></path>
-                                          <path d="M 780,340 Q 880,330 890,390 Q 860,450 800,440 Q 760,410 780,340 Z"></path>
-                  </g>
-
-                                    <g class="map-routes" fill="none" stroke="var(--primary)" stroke-width="2" stroke-dasharray="6 4" opacity="0.6">
-                     <path d="M 180,185 Q 330,110 510,165" class="flight-arc"></path>
-                     <path d="M 510,165 Q 500,175 475,185" class="flight-arc"></path>
-                     <path d="M 510,165 Q 610,170 710,235" class="flight-arc"></path>
-                  </g>
-
-                                    <g class="map-pins">
-                                          <g class="svg-pin is-active" data-city="Big Sur" data-country="California, USA" data-temp="21°C" data-season="Apr - Oct" data-img="image/popular/img.webp" data-desc="Dramatic Pacific coastal highway cliffs, secluded redwoods, and iconic Big Sur ocean lookouts." transform="translate(180, 185)">
-                        <circle class="pin-pulse" r="14" fill="var(--accent)" opacity="0.25"></circle>
-                        <circle class="pin-core" r="6" fill="var(--accent)"></circle>
-                        <text class="pin-text" x="12" y="4" fill="#ffffff" font-size="12" font-weight="600">Big Sur</text>
-                     </g>
-
-                                          <g class="svg-pin" data-city="Prescott" data-country="Arizona, USA" data-temp="24°C" data-season="May - Oct" data-img="image/popular/img-1.webp" data-desc="Cool mountain pine forests, pristine alpine lakes, and historic Victorian square architecture." transform="translate(225, 205)">
-                        <circle class="pin-pulse" r="14" fill="var(--accent)" opacity="0.25"></circle>
-                        <circle class="pin-core" r="6" fill="var(--accent)"></circle>
-                        <text class="pin-text" x="12" y="4" fill="#ffffff" font-size="12" font-weight="600">Prescott</text>
-                     </g>
-
-                                          <g class="svg-pin" data-city="Lake Como" data-country="Lombardy, Italy" data-temp="25°C" data-season="May - Sep" data-img="image/hotels/Grand Hotel.webp" data-desc="Serene deep-blue alpine waters surrounded by Belle Époque historic villas, floating pools, and cypress gardens." transform="translate(510, 165)">
-                        <circle class="pin-pulse" r="14" fill="var(--accent)" opacity="0.25"></circle>
-                        <circle class="pin-core" r="6" fill="var(--accent)"></circle>
-                        <text class="pin-text" x="12" y="4" fill="#ffffff" font-size="12" font-weight="600">Lake Como</text>
-                     </g>
-
-                                          <g class="svg-pin" data-city="Madrid" data-country="Central Spain" data-temp="27°C" data-season="Year-round" data-img="image/popular/img-5.webp" data-desc="Vibrant capital of grand royal boulevards, world-class art collections at Prado, and sunset tapas culture." transform="translate(475, 185)">
-                        <circle class="pin-pulse" r="14" fill="var(--accent)" opacity="0.25"></circle>
-                        <circle class="pin-core" r="6" fill="var(--accent)"></circle>
-                        <text class="pin-text" x="-12" y="4" fill="#ffffff" font-size="12" font-weight="600" text-anchor="end">Madrid</text>
-                     </g>
-
-                                          <g class="svg-pin" data-city="Udaipur" data-country="Rajasthan, India" data-temp="29°C" data-season="Oct - Mar" data-img="image/hotels/Udaipur, India.webp" data-desc="The City of Lakes: majestic royal marble palaces reflecting across tranquil Lake Pichola under starlit skies." transform="translate(710, 235)">
-                        <circle class="pin-pulse" r="14" fill="var(--accent)" opacity="0.25"></circle>
-                        <circle class="pin-core" r="6" fill="var(--accent)"></circle>
-                        <text class="pin-text" x="12" y="4" fill="#ffffff" font-size="12" font-weight="600">Udaipur</text>
-                     </g>
-                  </g>
-               </svg>
-
-               <div class="map-city-chips">
-                  <button class="map-chip is-active" type="button" data-city="Big Sur">Big Sur, USA</button>
-                  <button class="map-chip" type="button" data-city="Prescott">Prescott, USA</button>
-                  <button class="map-chip" type="button" data-city="Lake Como">Lake Como, Italy</button>
-                  <button class="map-chip" type="button" data-city="Madrid">Madrid, Spain</button>
-                  <button class="map-chip" type="button" data-city="Udaipur">Udaipur, India</button>
-               </div>
+   <dialog class="modal-dialog modal-dialog--wide" id="story-modal" aria-labelledby="story-modal-title">
+      <div class="modal-dialog__content">
+         <button class="modal-dialog__close" id="btn-close-story" aria-label="Close itinerary">&times;</button>
+         <span class="modal-eyebrow" id="story-modal-eyebrow">Curated Route Itinerary</span>
+         <h2 class="modal-title" id="story-modal-title">Brooklyn Bridge Cinematic Photo Walk</h2>
+         <p class="modal-desc" id="story-modal-desc">Follow our step-by-step timed walking itinerary with prime camera lookout points and neighborhood culinary pauses.</p>
+         <div class="story-itinerary">
+            <div class="story-itinerary__timeline" id="story-timeline-container">
             </div>
-
-                        <div class="globe-info-card" id="globe-info-card">
-               <div class="globe-info__img-wrap">
-                  <img id="globe-spotlight-img" src="image/popular/img.webp" alt="Selected destination preview" width="300" height="180">
-                  <span class="spotlight-chip" id="globe-spotlight-badge">Curated Destination</span>
-               </div>
-               <div class="globe-info__header">
-                  <h3 class="globe-info__title" id="globe-city-name">Big Sur</h3>
-                  <span class="globe-info__country" id="globe-country-name">California, USA</span>
-               </div>
-               <div class="globe-info__stats">
-                  <div class="globe-stat">
-                     <span class="globe-stat__label">Avg. Weather</span>
-                     <span class="globe-stat__val" id="globe-temp-val">21°C &middot; Sunny</span>
-                  </div>
-                  <div class="globe-stat">
-                     <span class="globe-stat__label">Best Season</span>
-                     <span class="globe-stat__val" id="globe-season-val">April &ndash; October</span>
-                  </div>
-               </div>
-               <p class="globe-info__desc" id="globe-vibe-desc">Dramatic Pacific coastal highway cliffs, secluded redwoods, and iconic Big Sur ocean lookouts.</p>
-               <button class="button button--primary globe-info__btn" id="btn-globe-filter" type="button">Filter Stays in this Region</button>
+            <div class="hotel-modal__footer">
+               <span class="price-sub" id="story-modal-meta">Total Duration: ~4.5 Hours &middot; Distance: 2.8 Miles</span>
+               <button class="button button--primary" id="btn-save-itinerary" type="button">Save to My Trips</button>
             </div>
          </div>
       </div>
@@ -840,12 +756,37 @@
                   <span class="amenity-chip">✓ Michelin Dining</span>
                   <span class="amenity-chip">✓ Thermal Spa Suite</span>
                </div>
-               <div class="hotel-modal__footer">
+               <div class="stay-calculator">
+                  <span class="stay-calculator__label">Select Duration</span>
+                  <div class="stepper">
+                     <button type="button" class="stepper__btn" id="stay-nights-minus" aria-label="Decrease nights">&minus;</button>
+                     <span class="stepper__val" id="stay-nights-val">3 nights</span>
+                     <button type="button" class="stepper__btn" id="stay-nights-plus" aria-label="Increase nights">&plus;</button>
+                  </div>
+               </div>
+               <div class="hotel-modal__footer" id="hotel-modal-footer">
                   <div class="hotel-modal__price-box">
                      <span class="price-val" id="hotel-modal-price">$680</span>
-                     <span class="price-sub">per night / 2 guests</span>
+                     <span class="price-sub" id="hotel-modal-total">Total: $2,040 for 3 nights</span>
                   </div>
                   <button class="button button--primary" id="btn-book-stay" type="button">Reserve Experience</button>
+               </div>
+               <div class="booking-confirm-card" id="booking-confirm-card" style="display: none;">
+                  <div class="booking-confirm-card__header">
+                     <span>✓ Reservation Confirmed!</span>
+                  </div>
+                  <div class="booking-confirm-card__row">
+                     <span>Booking Ref:</span>
+                     <span class="booking-confirm-card__ref" id="booking-ref-code">#TRV-8492</span>
+                  </div>
+                  <div class="booking-confirm-card__row">
+                     <span>Duration:</span>
+                     <span id="booking-summary-nights">3 nights / 2 guests</span>
+                  </div>
+                  <div class="booking-confirm-card__row">
+                     <span>Total Paid:</span>
+                     <span id="booking-summary-total">$2,040</span>
+                  </div>
                </div>
             </div>
          </div>

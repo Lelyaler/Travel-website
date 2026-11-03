@@ -1383,192 +1383,209 @@ input, select, textarea {
   max-width: 580px;
 }
 
-.globe-explorer {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: 32px;
-  margin-top: 28px;
-  align-items: stretch;
-}
-
-.world-map-wrap {
+.hotels__header-controls {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 16px;
 }
 
-.world-map-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 20px;
-  background: #0f172a;
-  box-shadow: 0 14px 32px -8px rgba(15, 23, 42, 0.4);
-}
-
-.flight-arc {
-  animation: flightPulse 4s ease-in-out infinite alternate;
-}
-
-@keyframes flightPulse {
-  0% {
-    stroke-dashoffset: 0;
-    opacity: 0.45;
-  }
-  100% {
-    stroke-dashoffset: 20;
-    opacity: 0.85;
-  }
-}
-
-.svg-pin {
-  cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.svg-pin .pin-pulse {
-  transition: all 0.25s ease;
-}
-
-.svg-pin .pin-core {
-  transition: all 0.25s ease;
-}
-
-.svg-pin:hover .pin-core,
-.svg-pin.is-active .pin-core {
-  fill: #ffffff;
-  r: 8;
-}
-
-.svg-pin:hover .pin-pulse,
-.svg-pin.is-active .pin-pulse {
-  opacity: 0.55;
-  r: 18;
-  fill: var(--accent);
-}
-
-.svg-pin:hover .pin-text,
-.svg-pin.is-active .pin-text {
-  font-weight: 700;
-  fill: #38bdf8;
-}
-
-.map-city-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.map-chip {
-  padding: 8px 14px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary);
+.currency-selector {
+  display: inline-flex;
   background: #f1f5f9;
+  padding: 4px;
+  border-radius: var(--radius-full);
+  gap: 2px;
+}
+
+.currency-chip {
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   border: none;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition);
 }
 
-.map-chip:hover,
-.map-chip.is-active {
-  background: var(--primary);
-  color: #ffffff;
-  font-weight: 600;
-  box-shadow: 0 4px 12px var(--primary-glow);
-}
-
-.globe-info-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 24px;
-  background: #f8fafc;
-  border: none;
-  border-radius: 24px;
-}
-
-.globe-info__img-wrap {
-  position: relative;
-  width: 100%;
-  height: 190px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.15);
-}
-
-.globe-info__img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease;
-}
-
-.globe-info__img-wrap:hover img {
-  transform: scale(1.04);
-}
-
-.spotlight-chip {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 5px 12px;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  border-radius: var(--radius-full);
-}
-
-.globe-info__title {
-  font-size: 22px;
-  font-weight: 700;
+.currency-chip:hover {
   color: var(--text-main);
-  letter-spacing: -0.01em;
 }
 
-.globe-info__country {
+.currency-chip.is-active {
+  background: #ffffff;
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.stay-calculator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: #f8fafc;
+  border-radius: 16px;
+  margin-top: 6px;
+}
+
+.stay-calculator__label {
   font-size: 13px;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-weight: 600;
+  color: var(--text-main);
 }
 
-.globe-info__stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.stepper {
+  display: flex;
+  align-items: center;
   gap: 12px;
 }
 
-.globe-stat {
+.stepper__btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-main);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.stepper__btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.stepper__val {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  min-width: 65px;
+  text-align: center;
+}
+
+.booking-confirm-card {
+  padding: 20px;
+  background: #f0fdf4;
+  border-radius: 18px;
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 10px;
 }
 
-.globe-stat__label {
+.booking-confirm-card__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #166534;
+}
+
+.booking-confirm-card__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #15803d;
+}
+
+.booking-confirm-card__ref {
+  font-family: monospace;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.story-itinerary {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.story-itinerary__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+  padding-left: 28px;
+}
+
+.story-itinerary__timeline::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 8px;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.itinerary-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itinerary-step::before {
+  content: "";
+  position: absolute;
+  left: -28px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 4px #e0e7ff;
+}
+
+.itinerary-step__time {
   font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  color: var(--primary);
 }
 
-.globe-stat__val {
-  font-size: 14px;
+.itinerary-step__title {
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-main);
 }
 
-.globe-info__desc {
-  font-size: 13.5px;
+.itinerary-step__desc {
+  font-size: 13px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.55;
+}
+
+.button-itinerary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition);
+}
+
+.button-itinerary:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
 }
 
 .button--primary {
