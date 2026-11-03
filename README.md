@@ -1,20 +1,38 @@
-# Travel-website
-## https://lelyaler.github.io/Travel-website/
+# 2rism — Travel & Destinations Landing Page
 
-### 💻 About :
-The website is a single-landing page.
-- On the website, there is a form with a date and location.
+Адаптивный посадочный лендинг туристического сервиса для поиска туров, отелей и экскурсий. Реализован на чистом HTML5/CSS3 по методологии БЭМ с интерактивной формой поиска и фильтрацией.
 
-- On the website, there is a burger menu.
-
-- Swiper slider is used
-
-- Adaptable down to 320px: The design effectively adapts to screens as small as 320px.
-
-- Shared Reusable Styles: Reusable styles are organized within the header's style.css to enhance efficiency
-
-- BEM Methodology in Markup: The project adheres to the BEM (Block Element Modifier) methodology for structured and maintainable HTML and CSS.
-
-- Content Structuring: All content is organized into folders for better management.
+- **Live Demo:** [lelyaler.github.io/Travel-website](https://lelyaler.github.io/Travel-website/)
 
 ---
+
+## Особенности реализации
+
+- **Полноценная адаптивность:** корректная перестройка макета от 320px до десктопа без горизонтального скролла.
+- **Интерактивная форма подбора:** автокомплит популярных направлений (`autoComplete.js`), кастомный селект выбора категории и датапикер.
+- **Мобильная навигация:** бургер-меню с плавной анимацией открытия и блокировкой прокрутки страницы при открытом меню.
+- **Карусели и галереи:** адаптивные слайдеры популярных локаций и отелей с поддержкой свайпов на тач-устройствах.
+- **Оптимизация Core Web Vitals:** предзагрузка ключевых изображений первого экрана (`fetchpriority="high"`), использование формата WebP, шрифты с `font-display: swap`.
+
+---
+
+## Стек технологий
+
+- HTML5 (семантическая разметка, Open Graph, ARIA)
+- CSS3 (Flexbox, CSS Grid, адаптивные медиа-запросы, БЭМ)
+- JavaScript (Vanilla JS ES6+)
+- Библиотеки: autoComplete.js, Easepick (календарь), кастомные селекты
+
+---
+
+## Локальный запуск
+
+```bash
+git clone https://github.com/Lelyaler/Travel-website.git
+cd Travel-website
+
+# Запуск любого статического сервера:
+python3 -m http.server 8000
+```
+
+Страница доступна по адресу `http://localhost:8000`.
